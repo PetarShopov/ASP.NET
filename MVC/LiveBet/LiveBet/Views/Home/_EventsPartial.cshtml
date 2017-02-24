@@ -1,0 +1,75 @@
+﻿@model LiveBet.Data.Models.Sport
+
+@{
+    var sport = Model;
+    var i = Model.Id;
+}
+
+@for (int j = 0; j < sport.Events.Count(); j++)
+            {
+    <button type="button" class="btn btn-default btn-sm" style="padding-top:5px;" data-toggle="collapse" data-target=@("#event" + i + j)>
+        <span class="glyphicon glyphicon-chevron-down"></span> @sport.Events.ElementAt(j).Name
+    </button>
+        <br />
+                <div id=@("event" + i + j) class="collapse">
+                    @for (int t = 0; t < sport.Events.ElementAt(j).Matches.Count(); t++)
+                    {
+                        var toAddMatch = false;
+                        
+                        foreach (var item in sport.Events.ElementAt(j).Matches.ElementAt(t).Bets)
+                        {
+                            if (item.Odds.Count() != 0)
+                            {
+                                toAddMatch = true;
+                            }
+                        }
+                        
+                        if (sport.Events.ElementAt(j).Matches.ElementAt(t).StartDate < DateTime.Now.AddHours(24)
+                            && toAddMatch == true)
+                        {
+                            <div id="matchesInfo">
+                                @sport.Events.ElementAt(j).Matches.ElementAt(t).StartDate.ToString("MMM dd, HH:mm")
+                                <span>@(" * ")</span>
+                                @sport.Events.ElementAt(j).Matches.ElementAt(t).Name
+                                <span>@(" * ")</span>
+                                <em>@sport.Events.ElementAt(j).Matches.ElementAt(t).MatchType</em>
+                                <span>@(" * ")</span>
+                            </div>
+
+                            for (int k = 0; k < sport.Events.ElementAt(j).Matches.ElementAt(t).Bets.Count(); k++)
+                            {
+                                <div style="margin:5px 5px 5px 100px;">@sport.Events.ElementAt(j).Matches.ElementAt(t).Bets.ElementAt(k).Name</div>
+
+                                for (int f = 0; f < sport.Events.ElementAt(j).Matches.ElementAt(t).Bets.ElementAt(k).Odds.Count(); f++)
+                                {
+                                    <div id="oddInfo">
+                                        <span>@sport.Events.ElementAt(j).Matches.ElementAt(t).Bets.ElementAt(k).Odds.ElementAt(f).Name</span>
+                                        <span>@sport.Events.ElementAt(j).Matches.ElementAt(t).Bets.ElementAt(k).Odds.ElementAt(f).Value </span>
+                                        <span>@sport.Events.ElementAt(j).Matches.ElementAt(t).Bets.ElementAt(k).Odds.ElementAt(f).SpecialBetValue</span>
+                                    </div>
+                                }
+                            }
+                        }
+                    }
+                </div>
+}
+
+<style>
+    #matchesInfo {
+        border: 1px solid black;
+        border-radius: 4px;
+        background-color: #ECFCD1;
+        padding: 2px;
+        margin: 5px 5px 5px 50px;
+        width: 400px;
+    }
+
+    #oddInfo {
+        border: 1px solid black;
+        border-radius: 4px;
+        background-color: grey;
+        padding: 2px;
+        margin: 5px 5px 5px 100px;
+        width: 200px;
+    }
+</style>

@@ -1,11 +1,10 @@
-﻿using AutoMapper;
-using LiveBet.Data.Models;
-using LiveBet.Infrastructure.Mapping;
-using System;
-using System.Collections.Generic;
-
-namespace LiveBet.ViewModels
+﻿namespace LiveBet.ViewModels
 {
+    using AutoMapper;
+    using LiveBet.Data.Models;
+    using LiveBet.Infrastructure.Mapping;
+    using System.Collections.Generic;
+
     public class BetViewModel : IMapFrom<Bet>, IHaveCustomMappings
     {
         public int TempId { get; set; }

@@ -1,14 +1,12 @@
 ﻿namespace LiveBet.App_Start
 {
-    using System.Threading.Tasks;
+    using Data.Models;
+    using LiveBet.Data;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin;
-    using LiveBet.Data;
-    using Data.Models;
-    // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
-
+    using System.Threading.Tasks;
     public class ApplicationUserManager : UserManager<User>
     {
         public ApplicationUserManager(IUserStore<User> store)
@@ -19,13 +17,11 @@
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<User>(context.Get<ApplicationDbContext>()));
-            // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<User>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
-            // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
@@ -34,8 +30,6 @@
                 RequireLowercase = false,
                 RequireUppercase = false,
             };
-            // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
-            // You can write your own provider and plug in here.
             manager.RegisterTwoFactorProvider("PhoneCode", new PhoneNumberTokenProvider<User>
             {
                 MessageFormat = "Your security code is: {0}"
@@ -60,7 +54,6 @@
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
             return Task.FromResult(0);
         }
     }
@@ -69,7 +62,6 @@
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your sms service here to send a text message.
             return Task.FromResult(0);
         }
     }

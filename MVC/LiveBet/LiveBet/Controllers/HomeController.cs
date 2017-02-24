@@ -1,17 +1,13 @@
-﻿using AutoMapper;
-using LiveBet.Data.Common.Contracts;
-using LiveBet.Data.Models;
-using LiveBet.Services.Data.Contracts;
-using LiveBet.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace LiveBet.Controllers
+﻿namespace LiveBet.Controllers
 {
+    using Data;
+    using LiveBet.Data.Common.Contracts;
+    using LiveBet.Data.Models;
+    using LiveBet.Services.Data.Contracts;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web.Mvc;
     public class HomeController : BaseController
     {
         private IUrlToDBService urlToDBService;
@@ -23,21 +19,26 @@ namespace LiveBet.Controllers
         }
         public ActionResult Index()
         {
-            ICollection<Sport> sportss = urlToDBService.GetData();
+            if (!this.Data.Sports.All().Any())
+            {
+               urlToDBService.InitialRequest();
+            }
+            else
+            {
+                urlToDBService.UpdateDatabase();
+            }
 
-            //Get from Database
-            var sports = this.Data.Sports.All();
+            var sport = this.Data.Sports.All().AsNoTracking();
 
-            //Get from RAM
-            //var sport = sportss.ToArray();
-            //var sports = new Sport[3];
-            //sports[0] = sport[2];
-            //sports[1] = sport[3];
-            //sports[2] = sport[8];
+            Response.AddHeader("Refresh", "60");
+            return this.View(sport);
+        }
 
-            //Refresh and get new data on every 60s
-            //Response.AddHeader("Refresh", "60");
-            return this.View(sports);
+        public ActionResult DisplaySelectedEvent(string id)
+        {
+            int myId = int.Parse(id);
+            Sport model = this.Data.Sports.All().Where(m => m.Id == myId).FirstOrDefault();
+            return PartialView("_EventsPartial", model);
         }
 
         public ActionResult About()

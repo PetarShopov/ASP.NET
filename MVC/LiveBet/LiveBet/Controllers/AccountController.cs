@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Owin;
-using LiveBet.ViewModels;
-using LiveBet.App_Start;
-using LiveBet.Data.Models;
-
-namespace LiveBet.Controllers
+﻿namespace LiveBet.Controllers
 {
+    using LiveBet.App_Start;
+    using LiveBet.Data.Models;
+    using LiveBet.ViewModels;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin.Security;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Mvc;
     [Authorize]
     public class AccountController : Controller
     {
@@ -41,8 +34,6 @@ namespace LiveBet.Controllers
             }
         }
 
-        //
-        // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -50,8 +41,6 @@ namespace LiveBet.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -71,20 +60,15 @@ namespace LiveBet.Controllers
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
-        //
-        // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
-        //
-        // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -98,12 +82,6 @@ namespace LiveBet.Controllers
                 {
                     await SignInAsync(user, isPersistent: false);
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -112,12 +90,9 @@ namespace LiveBet.Controllers
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
-        //
-        // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
@@ -137,17 +112,12 @@ namespace LiveBet.Controllers
                 return View();
             }
         }
-
-        //
-        // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
         }
 
-        //
-        // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -161,29 +131,17 @@ namespace LiveBet.Controllers
                     ModelState.AddModelError("", "The user either does not exist or is not confirmed.");
                     return View();
                 }
-
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
-        //
-        // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();
         }
 	
-        //
-        // GET: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
@@ -194,8 +152,6 @@ namespace LiveBet.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/ResetPassword
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -221,20 +177,15 @@ namespace LiveBet.Controllers
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
-        //
-        // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
         }
 
-        //
-        // POST: /Account/Disassociate
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
@@ -254,8 +205,6 @@ namespace LiveBet.Controllers
             return RedirectToAction("Manage", new { Message = message });
         }
 
-        //
-        // GET: /Account/Manage
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -269,8 +218,6 @@ namespace LiveBet.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Manage
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Manage(ManageUserViewModel model)
@@ -297,7 +244,6 @@ namespace LiveBet.Controllers
             }
             else
             {
-                // User does not have a password so remove any validation errors caused by a missing OldPassword field
                 ModelState state = ModelState["OldPassword"];
                 if (state != null)
                 {
@@ -318,23 +264,17 @@ namespace LiveBet.Controllers
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
-        //
-        // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
-            // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
-        //
-        // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
@@ -344,7 +284,6 @@ namespace LiveBet.Controllers
                 return RedirectToAction("Login");
             }
 
-            // Sign in the user with this external login provider if the user already has a login
             var user = await UserManager.FindAsync(loginInfo.Login);
             if (user != null)
             {
@@ -353,25 +292,19 @@ namespace LiveBet.Controllers
             }
             else
             {
-                // If the user does not have an account, then prompt the user to create an account
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                 return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
 
-        //
-        // POST: /Account/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
         {
-            // Request a redirect to the external login provider to link a login for the current user
             return new ChallengeResult(provider, Url.Action("LinkLoginCallback", "Account"), User.Identity.GetUserId());
         }
 
-        //
-        // GET: /Account/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
@@ -387,8 +320,6 @@ namespace LiveBet.Controllers
             return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
         }
 
-        //
-        // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -401,7 +332,6 @@ namespace LiveBet.Controllers
 
             if (ModelState.IsValid)
             {
-                // Get the information about the user from the external login provider
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
@@ -416,12 +346,6 @@ namespace LiveBet.Controllers
                     {
                         await SignInAsync(user, isPersistent: false);
                         
-                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                        // Send an email with this link
-                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        // SendEmail(user.Email, callbackUrl, "Confirm your account", "Please confirm your account by clicking this link");
-                        
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -432,8 +356,6 @@ namespace LiveBet.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -442,8 +364,6 @@ namespace LiveBet.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
-        // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
@@ -469,7 +389,6 @@ namespace LiveBet.Controllers
         }
 
         #region Helpers
-        // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager
@@ -506,7 +425,6 @@ namespace LiveBet.Controllers
 
         private void SendEmail(string email, string callbackUrl, string subject, string message)
         {
-            // For information on sending mail, please visit http://go.microsoft.com/fwlink/?LinkID=320771
         }
 
         public enum ManageMessageId

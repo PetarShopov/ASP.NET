@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace LiveBet.App_Start
+﻿namespace LiveBet.App_Start
 {
+    using System.Web.Mvc;
     public class ViewEngineConfig
     {
         public static void RegisterViewEngines(ViewEngineCollection viewEngineCollection)

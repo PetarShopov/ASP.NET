@@ -1,19 +1,14 @@
-﻿using LiveBet.App_Start;
-using LiveBet.Data;
-using LiveBet.Data.Migrations;
-using LiveBet.Infrastructure.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Reflection;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
-
-namespace LiveBet
+﻿namespace LiveBet
 {
+    using LiveBet.App_Start;
+    using LiveBet.Data;
+    using LiveBet.Data.Migrations;
+    using LiveBet.Infrastructure.Mapping;
+    using System.Data.Entity;
+    using System.Reflection;
+    using System.Web.Mvc;
+    using System.Web.Optimization;
+    using System.Web.Routing;
     public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()

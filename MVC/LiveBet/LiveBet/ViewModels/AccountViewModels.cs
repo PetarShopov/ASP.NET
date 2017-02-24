@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace LiveBet.ViewModels
+﻿namespace LiveBet.ViewModels
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class ExternalLoginListViewModel
     {
         public string Action { get; set; }

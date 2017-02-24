@@ -1,9 +1,8 @@
-﻿using AutoMapper;
-using LiveBet.Data.Models;
-using LiveBet.Infrastructure.Mapping;
-
-namespace LiveBet.ViewModels
+﻿namespace LiveBet.ViewModels
 {
+    using AutoMapper;
+    using LiveBet.Data.Models;
+    using LiveBet.Infrastructure.Mapping;
     public class OddViewModel : IMapFrom<Odd>, IHaveCustomMappings
     {
         public int TempId { get; set; }
