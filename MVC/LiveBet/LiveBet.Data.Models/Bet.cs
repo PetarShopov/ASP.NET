@@ -1,8 +1,8 @@
 ﻿namespace LiveBet.Data.Models
 {
     using LiveBet.Data.Models.Models;
-    using System.Collections.Generic;
     using Newtonsoft.Json;
+    using System.Collections.Generic;
     public class Bet : BaseModel
     {
         public Bet()

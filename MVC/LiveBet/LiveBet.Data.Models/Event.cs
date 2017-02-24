@@ -1,8 +1,8 @@
 ﻿namespace LiveBet.Data.Models
 {
-    using System.Collections.Generic;
     using LiveBet.Data.Models.Models;
     using Newtonsoft.Json;
+    using System.Collections.Generic;
 
     public class Event : BaseModel
     {

@@ -1,11 +1,10 @@
-﻿using LiveBet.Data.Common.Contracts;
-using LiveBet.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-
-namespace LiveBet.Data.Common
+﻿namespace LiveBet.Data.Common
 {
+    using LiveBet.Data.Common.Contracts;
+    using LiveBet.Data.Models;
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
     public class Data : IData
     {
         private readonly DbContext dbContext;

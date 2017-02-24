@@ -1,12 +1,12 @@
 ﻿namespace LiveBet.Data.Migrations
 {
+    using LiveBet.Common;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
     using System;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using LiveBet.Common;
     public sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         private UserManager<User> userManager;
@@ -21,45 +21,9 @@
         protected override void Seed(ApplicationDbContext context)
         {
             this.userManager = new UserManager<User>(new UserStore<User>(context));
-            //this.SeedRoles(context);
-            //this.SeedUsers(context);
             this.SeedSports(context);
         }
-
-        //private void SeedRoles(ApplicationDbContext context)
-        //{
-        //    context.Roles.AddOrUpdate(x => x.Name, new IdentityRole(GlobalConstants.AdminRole));
-        //    context.SaveChanges();
-        //}
-
-        //private void SeedUsers(ApplicationDbContext context)
-        //{
-        //    if (context.Users.Any())
-        //    {
-        //        return;
-        //    }
-
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        var user = new User
-        //        {
-        //            Email = string.Format("{0}@{1}.com", this.random.RandomString(6, 16), this.random.RandomString(6, 16)),
-        //            UserName = this.random.RandomString(6, 16)
-        //        };
-
-        //        this.userManager.Create(user, "123456");
-        //    }
-
-        //    var adminUser = new User
-        //    {
-        //        Email = "admin@mysite.com",
-        //        UserName = "Administrator"
-        //    };
-
-        //    this.userManager.Create(adminUser, "admin123456");
-
-        //    this.userManager.AddToRole(adminUser.Id, GlobalConstants.AdminRole);
-        //}
+        
         private void SeedSports(ApplicationDbContext context)
         {
             if (context.Sports.Any())

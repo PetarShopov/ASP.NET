@@ -1,11 +1,8 @@
 ﻿namespace LiveBet.Data
 {
-    using Models.Models;
     using LiveBet.Data.Models;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using System;
     using System.Data.Entity;
-    using System.Linq;
 
     public class ApplicationDbContext : IdentityDbContext<User>
     {

@@ -1,9 +1,9 @@
 ﻿namespace LiveBet.Data.Models
 {
-    using System;
-    using System.Collections.Generic;
     using LiveBet.Data.Models.Models;
     using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
     public class Match : BaseModel
     {
         public Match()
@@ -16,9 +16,7 @@
         public DateTime StartDate { get; set; }
         [JsonProperty("@MatchType")]
         public string MatchType { get; set; }
-
         public int EventId { get; set; }
-
         public virtual Event Event { get; set; }
     }
 }

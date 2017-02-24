@@ -1,11 +1,10 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-
-namespace LiveBet.Infrastructure.Mapping
+﻿namespace LiveBet.Infrastructure.Mapping
 {
+    using AutoMapper;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
     public class AutoMapperConfig
     {
         public static MapperConfiguration Configuration { get; private set; }

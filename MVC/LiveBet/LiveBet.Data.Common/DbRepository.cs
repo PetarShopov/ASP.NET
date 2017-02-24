@@ -1,11 +1,10 @@
-﻿using LiveBet.Data.Common.Contracts;
-using System;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-
-namespace LiveBet.Data
+﻿namespace LiveBet.Data
 {
+    using LiveBet.Data.Common.Contracts;
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Linq;
     public class DbRepository<T> : IDbRepository<T> where T : class
     {
         public DbRepository(DbContext context)
@@ -27,7 +26,7 @@ namespace LiveBet.Data
         {
             return this.DbSet.AsQueryable();
         }
-
+        
         public virtual T GetById(object id)
         {
             return this.DbSet.Find(id);

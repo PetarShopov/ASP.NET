@@ -1,10 +1,9 @@
-﻿using AutoMapper.QueryableExtensions;
-using System;
-using System.Linq;
-using System.Linq.Expressions;
-
-namespace LiveBet.Infrastructure.Mapping
+﻿namespace LiveBet.Infrastructure.Mapping
 {
+    using AutoMapper.QueryableExtensions;
+    using System;
+    using System.Linq;
+    using System.Linq.Expressions;
     public static class QueryableExtensions
     {
         public static IQueryable<TDestination> To<TDestination>(this IQueryable source, params Expression<Func<TDestination, object>>[] membersToExpand)

@@ -1,14 +1,12 @@
-﻿using LiveBet.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LiveBet.Services.Data.Contracts
+﻿namespace LiveBet.Services.Data.Contracts
 {
+    using LiveBet.Data.Models;
+    using System.Collections.Generic;
     public interface IUrlToDBService
     {
         ICollection<Sport> GetData();
+        void InitialRequest();
+        void UpdateDatabase();
+        void ClearFinishedEventsAndMatches();
     }
 }
